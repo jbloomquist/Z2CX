@@ -5,6 +5,9 @@ html, body {
 
 body {
   background-color:#000000;
+  font-family: source-code-pro, monospace;
+  font-style: normal;
+  font-weight: 200;
 }
 
 .center {
