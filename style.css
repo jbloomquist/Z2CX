@@ -3,6 +3,11 @@ html, body {
   width: 100%;
 }
 
+a{
+    color: #66D9EF;
+    text-decoration: none;
+}
+
 body {
   background-color:#000000;
   font-family: source-code-pro, monospace;
