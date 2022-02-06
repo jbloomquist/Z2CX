@@ -10,7 +10,7 @@ a{
 body {
   background-color:#000000;
   font-family: source-code-pro, monospace;
-  font-size: 16pt;
+  font-size: 14pt;
   font-style: normal;
   font-weight: bold;
 }
@@ -23,8 +23,7 @@ body {
 
 /*Gradient Effects*/
 .retrowave {
-    -webkit-background-clip: text;
-    -webkit-text-stroke: 1px white;
+    -webkit-background-clip: text !important;
     background: linear-gradient(60deg, rgba(231,45,163,1) 7%, rgba(186,0,255,1) 33%, rgba(90,0,255,1) 63%, rgba(0,180,255,1) 91%);
     background-size: 200% 200%;
     color:transparent;
