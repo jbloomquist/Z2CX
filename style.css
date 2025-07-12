@@ -21,6 +21,10 @@ body {
   align-items: center;
 }
 
+h1,h3{
+  display: block;
+}
+
 /*Gradient Effects*/
 .retrowave {
     -webkit-background-clip: text !important;
