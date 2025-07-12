@@ -35,6 +35,7 @@ body {
 
 a {
     text-decoration: none;
+    margin-bottom: 0.8rem;
     color: inherit;
 }
 
