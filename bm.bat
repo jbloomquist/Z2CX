@@ -2,7 +2,7 @@
 ::::  Script: bm.bat
 :::: Version: 0.9
 :::: Updated: 2025-07-12
-::::  Source: z2.cx/bm
+::::  Source: z2.cx/bm.bat
 ::::
 :::: Add script location to user %path% environment variable to use it as intended. 
 :::: Run "bm" to see usage info.
@@ -101,6 +101,7 @@ GOTO BM_QUIT
 SET choice=""
 IF "%~1" EQU "" (GOTO BM_USAGE) ELSE (IF "%~1" EQU "-?" GOTO BM_USAGE) & IF "%~1" EQU "/?" (GOTO BM_USAGE) ELSE (IF /I "%~1" EQU "help" GOTO BM_USAGE)
 IF "%~1" EQU "BM" GOTO BM_SOURCE
+IF "%~1" EQU "-SHA256" GOTO BM_CHECKSUM
 IF "%~1" EQU "-D" DEL %~dp0\bm\defaultbrowser & DEL %~dp0\bm\dfbrowserflags && GOTO BM_PREINIT
 IF "%~1" EQU "-I" GOTO BM_INSPECT
 IF "%~1" EQU "-L" GOTO BM_READOUT
@@ -119,10 +120,14 @@ FOR /F "delims=" %%u IN ('FINDSTR ://* %~dp0\bm\%~1') DO SET "url=%%u"
 FOR /F "delims=" %%u IN ('FINDSTR /I ".bat .cmd call*" "%~dp0\bm\%~1"') DO SET "call=%%u"
 IF EXIST "%~dp0\bm\%~1" IF DEFINED url START "" %browser% %flags% %address% && GOTO BM_QUIT
 IF EXIST "%~dp0\bm\%~1" IF DEFINED call CALL %address% && GOTO BM_QUIT
-IF EXIST "%~dp0\bm\%~1" IF NOT DEFINED url IF NOT DEFINED call START "" "%address%" && GOTO BM_QUIT
+IF EXIST "%~dp0\bm\%~1" IF NOT DEFINED url IF NOT DEFINED call CALL START "" "%address%" && GOTO BM_QUIT
 ECHO Invalid option.
 PAUSE
 GOTO BM_INIT
+
+:BM_CHECKSUM
+CD %~dp0 & CertUtil -hashfile bm.bat SHA256 & CertUtil -hashfile bm.bat SHA256 > bm.bat.sha256 
+ECHO Created bm.bat.sha256 in directory %~dp0 & GOTO BM_QUIT
 
 :BM_MAKE
 ECHO What is the desired target for label: "%~1"?
@@ -209,7 +214,7 @@ GOTO BM_QUIT
 ECHO(
 ECHO ERROR: Target cannot be self-referential. I mean, I guess IT COULD be, but it SHOULDN'T be. 
 ECHO If you REALLY want to do this, create a shortcut to the batch file and target the .lnk file.
-ECHO Or, run bm BM to view the script in Notepad and delete Line 130 of the script.
+ECHO Or, run bm BM to view the script in Notepad and delete Line 135 of the script.
 ECHO(
 ECHO You Monster.
 GOTO BM_QUIT
