@@ -1,7 +1,7 @@
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::::  Script: bm.bat
-:::: Version: 0.8
-:::: Updated: 2024-08-28
+:::: Version: 0.9
+:::: Updated: 2025-07-12
 ::::  Source: z2.cx/bm
 ::::
 :::: Add script location to user %path% environment variable to use it as intended. 
@@ -9,13 +9,45 @@
 ::::
 :::: This script is incomplete and actively being updated. 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-@ECHO OFF &SETLOCAL disabledelayedexpansion
+@ECHO OFF &SETLOCAL DISABLEDELAYEDEXPANSION
 TITLE bm
+
+:BM_FIRST_TIME_RUNNING
+SET "rundir=%~dp0"
+IF "%rundir:~-1%"=="\" SET "rundir=%rundir:~0,-1%"
+
+FOR /F "skip=2 tokens=2,*" %%A IN ('REG QUERY "HKCU\Environment" /v PATH 2^>nul') DO SET "UserPath=%%B"
+
+SETLOCAL ENABLEDELAYEDEXPANSION
+ECHO !UserPath! | FINDSTR /I /C:"%rundir%" >NUL
+ENDLOCAL
+
+IF ERRORLEVEL 1 (
+  ECHO %rundir% NOT found in user PATH.
+  ECHO(
+  ECHO This script will "install" to the directory that you are running it from.
+  ECHO It will add the directory that it is run from to the USER PATH environment.
+  ECHO Additionally, it will create a sub-directory in that directory called "bm".
+  ECHO That directory will be where bookmarks you create with the script are stored.
+  ECHO(
+  ECHO If you continue, the script will do those things now.
+  ECHO Exit and move this script, then re-run it if you wish to change the install location.
+  ECHO(
+  PAUSE
+  POWERSHELL -NoProfile -Command "[Environment]::SetEnvironmentVariable('PATH', ($env:Path + ';%rundir%'), 'User')"
+  ECHO(
+  ECHO User Path Updated. To avoid any runtime expansion errors, this script will now open in a new CMD.
+  PAUSE
+  START "" /D "%rundir%" CMD /K "%~nx0"
+  EXIT
+) ELSE (
+  GOTO BM_PREINIT
+)
 
 :BM_PREINIT
 IF NOT EXIST "%~dp0\bm" MKDIR "%~dp0\bm"
-IF EXIST "%~dp0\bm\defaultbrowser" GOTO BM_INIT
 IF EXIST "%~dp0\..\bm.bat" GOTO BM_CRITICAL_ERROR_INFREC
+IF EXIST "%~dp0\bm\defaultbrowser" GOTO BM_INIT
 SET browserchoice=""
 CLS
 ECHO(
@@ -60,6 +92,8 @@ CLS
 ECHO Browser and Flags set.
 ECHO You can run this setup again by passing the -D flag with bm.bat.
 ECHO BM is now configured to open URL bm shortcuts. 
+ECHO(
+ECHO If you run bm without any additional parameters, it'll show you the usage information.
 SET /P exitprompt=Press enter to exit and then run bm again with the desired arguments.
 GOTO BM_QUIT
 
@@ -175,14 +209,23 @@ GOTO BM_QUIT
 ECHO(
 ECHO ERROR: Target cannot be self-referential. I mean, I guess IT COULD be, but it SHOULDN'T be. 
 ECHO If you REALLY want to do this, create a shortcut to the batch file and target the .lnk file.
-ECHO Or, run bm BM to view the script in Notepad and delete Line 82 of the script.
+ECHO Or, run bm BM to view the script in Notepad and delete Line 130 of the script.
 ECHO(
 ECHO You Monster.
 GOTO BM_QUIT
 
 :BM_CRITICAL_ERROR_INFREC
-ECHO Detected bm.bat one level up... Please remove bm.bat from %~dp0\.. before running bm.bat from %~dp0
+CLS
+SET "parent="
+PUSHD "%~dp0.."
+SET "parent=%CD%"
+POPD
+ECHO WARNING: Detected bm.bat one level up... 
+ECHO Please remove bm.bat from %parent% before running bm.bat from %~dp0
 ECHO This is to avoid unintentional infinite and recursive loops, or fork-bombing.
+ECHO(
+ECHO If for whatever reason you want to disable this built-in protection;
+ECHO Comment out line 17 from the bm.bat you're attempting to run by appending two colons ::
 GOTO BM_QUIT
 
 :BM_QUIT_ERROR1
