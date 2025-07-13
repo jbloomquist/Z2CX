@@ -238,7 +238,7 @@ GOTO BM_QUIT
 ECHO(
 ECHO ERROR: Target cannot be self-referential. I mean, I guess IT COULD be, but it SHOULDN'T be. 
 ECHO If you REALLY want to do this, create a shortcut to the batch file and target the .lnk file.
-ECHO Or, run bm BM to view the script in Notepad and delete Line 135 of the script.
+ECHO Or, run bm BM to view the script in Notepad and comment out Line 138 of the script.
 ECHO(
 ECHO You Monster.
 GOTO BM_QUIT
@@ -254,7 +254,7 @@ ECHO Please remove bm.bat from %parent% before running bm.bat from %~dp0
 ECHO This is to avoid unintentional infinite and recursive loops, or fork-bombing.
 ECHO(
 ECHO If for whatever reason you want to disable this built-in protection;
-ECHO Comment out line 17 from the bm.bat you're attempting to run by appending two colons ::
+ECHO Comment out line 51 from the bm.bat you're attempting to run by appending two colons ::
 GOTO BM_QUIT
 
 :BM_QUIT_ERROR1
