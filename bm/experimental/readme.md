@@ -10,9 +10,11 @@
 ```bm scryfall legal:commander+set:fin+ci:mardu```
 
 * If you are using multiple query criteria, it may be necessary to escape &s with two or three ^s.
+* Optionally you can just omit the model query and only include ?q=.
 * Here the %~2 does contain spaces, so make sure it's quote wrapped. 
 
 `gpt` `https://chatgpt.com/?model=auto^^^&q=` `bm gpt "query string for chatgpt"`
+`gpt` `https://chatgpt.com/?q=` `bm gpt "query string for chatgpt"`
 
 ```bm gpt "heres how we query chatgpt from command line, avoid special characters"```
 
