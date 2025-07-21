@@ -5,22 +5,26 @@
 ### Here's a few useful use cases for this behavior.
 * If %~2 doesn't contain spaces, do not quote wrap it.
 
-`youtube` `https://www.youtube.com/results?search_query=` `bm youtube search+crriteria`
-```bm youtube rick+roll```
+*YouTube*
+Import: `bm yt https://www.youtube.com/results?search_query=`
+Usage: `bm yt never+gonna+give+you+up`
 
-`scryfall` `https://scryfall.com/search?q=` `bm scryfall search+criteria`
+*Scryfall*
+Import: `bm scryfall https://scryfall.com/search?q=`
+Usage: `bm scryfall legal:commander+set:fin+ci:mardu`
 
-```bm scryfall legal:commander+set:fin+ci:mardu```
-
+*ChatGPT*
+Import: `gpt https://chatgpt.com/?model=auto^^^&q= "query string for chatgpt"` (Model Specific)
 * If you are using multiple query criteria, it may be necessary to escape &s with two or three ^s.
+  
+Import: `gpt https://chatgpt.com/?q= "query string for chatgpt"` (Automatic Model)
+Usage: `bm gpt "heres how we query chatgpt from command line, avoid special characters"`
+
 * Optionally you can just omit the model query and only include ?q=.
-* Here the %~2 does contain spaces, so make sure it's quote wrapped. 
+* Here the %~2 does contain spaces, so make sure it's quote wrapped.
+* Some special characters will escape the scripting, so avoid using them in your search string.
 
-`gpt` `https://chatgpt.com/?model=auto^^^&q=` `bm gpt "query string for chatgpt"`
-`gpt` `https://chatgpt.com/?q=` `bm gpt "query string for chatgpt"`
-
-```bm gpt "heres how we query chatgpt from command line, avoid special characters"```
-
+---
 
 ## Shell Calls
 
@@ -30,7 +34,7 @@
 
 `godmode` `call explorer shell:::{ED7BA470-8E54-465E-825C-99712043E01C}` `bm godmode`
 
-```bm godmode``` 
+Usage: ```bm godmode``` 
 
 ## Clip Pipes
 
