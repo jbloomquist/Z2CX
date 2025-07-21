@@ -5,13 +5,19 @@
 ### Here are some use cases for this behavior:
 
 **YouTube**  
-Import: `bm yt https://www.youtube.com/results?search_query=`  
+Import: `bm yt`  
+Target: `https://www.youtube.com/results?search_query=`  
 Usage: `bm yt never+gonna+give+you+up`  
 
 **Scryfall**  
-Import: `bm scryfall https://scryfall.com/search?q=`  
+Import: `bm scryfall`  
+Target: `https://scryfall.com/search?q=`  
 Usage: `bm scryfall legal:commander+set:fin+ci:mardu`
-  
+
+* If your target address has the equals sign (*=*) avoid using the NO_PROMPT method when creating a bookmark.
+  * No prompt example: Label doesn't already exist and you type `bm labelname targetaddress`.
+    * This creates a new bookmark called labelname with the target of targetaddress with no prompt.
+
 **ChatGPT**  
 Import: `gpt https://chatgpt.com/?model=auto^^^&q= "query string for chatgpt"` (Model Specific)  
   
