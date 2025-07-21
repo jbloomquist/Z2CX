@@ -5,9 +5,9 @@
 ### Here's a few useful use cases for this behavior.
 * If %~2 doesn't contain spaces, do not quote wrap it.
 
-*YouTube*
-Import: `bm yt https://www.youtube.com/results?search_query=`
-Usage: `bm yt never+gonna+give+you+up`
+*YouTube*  
+Import: `bm yt https://www.youtube.com/results?search_query=`  
+Usage: `bm yt never+gonna+give+you+up`  
 
 *Scryfall*  
 Import: `bm scryfall https://scryfall.com/search?q=`  
