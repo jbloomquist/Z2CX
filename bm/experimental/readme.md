@@ -4,8 +4,11 @@
 
 ### Here's a few useful use cases for this behavior.
 * If %~2 doesn't contain spaces, do not quote wrap it.
-  
-`scryfall` `https://scryfall.com/search?q=` `bm scryfall searchstring`
+
+`youtube` `https://www.youtube.com/results?search_query=` `bm youtube search+crriteria`
+```bm youtube rick+roll```
+
+`scryfall` `https://scryfall.com/search?q=` `bm scryfall search+criteria`
 
 ```bm scryfall legal:commander+set:fin+ci:mardu```
 
