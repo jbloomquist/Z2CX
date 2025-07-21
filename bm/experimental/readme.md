@@ -19,11 +19,14 @@ Usage: `bm scryfall legal:commander+set:fin+ci:mardu`
     * This creates a new bookmark called labelname with the target of targetaddress with no prompt.
 
 **ChatGPT**  
-Import: `gpt https://chatgpt.com/?model=auto^^^&q= "query string for chatgpt"` (Model Specific)  
+Import: `bm gpt`  
+Target: `https://chatgpt.com/?model=auto^^^&q=`  
+Usage: `bm gpt "query string for chatgpt"` (Model Specific)  
   
 * If you are using multiple query criteria, it may be necessary to escape &s with two or three ^s.  
   
-Import: `gpt https://chatgpt.com/?q= "query string for chatgpt"` (Automatic Model)  
+Import: `bm gpt`  
+Target: `https://chatgpt.com/?q=` (Automatic Model)  
 Usage: `bm gpt "heres how we query chatgpt from command line, avoid special characters"`  
   
 * Optionally you can just omit the model query and only include ?q=.  
