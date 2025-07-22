@@ -4,12 +4,12 @@
 
 ### Here are some use cases for this behavior:
 
-**YouTube**  
+<ins>**YouTube**</ins>  
 Import: `bm yt`  
 Target: `https://www.youtube.com/results?search_query=`  
 Usage: `bm yt never+gonna+give+you+up`  
 
-**Scryfall**  
+<ins>**Scryfall**</ins>  
 Import: `bm scryfall`  
 Target: `https://scryfall.com/search?q=`  
 Usage: `bm scryfall legal:commander+set:fin+ci:mardu`
@@ -18,7 +18,7 @@ Usage: `bm scryfall legal:commander+set:fin+ci:mardu`
   * No prompt example: Label doesn't already exist and you type `bm labelname targetaddress`.
     * This creates a new bookmark called labelname with the target of targetaddress with no prompt.
 
-**ChatGPT**  
+<ins>**ChatGPT**  </ins>
 Import: `bm gpt`  
 Target: `https://chatgpt.com/?model=auto^^^&q=`  
 Usage: `bm gpt "query string for chatgpt"` (Model Specific)  
@@ -36,7 +36,8 @@ Usage: `bm gpt "heres how we query chatgpt from command line, avoid special char
 ---
   
 ## Shell Calls  
-### Explorer CLSID Calls  
+### Explorer CLSID Calls
+<ins>**All Tasks**</ins>  
 Import: `bm godmode call explorer shell:::{ED7BA470-8E54-465E-825C-99712043E01C}`  
 Usage: `bm godmode`  
   
@@ -47,6 +48,7 @@ Usage: `bm godmode`
   
 ### Limited Use-Case  
 
+<ins>**Copy String To Clipboard**</ins>  
 Import: `bm clipdemo "call echo|set /P=texttocopytoclipboard|clip"` (You'll want to tailor this to each label.)  
 Usage: `bm clipdemo`  
   
