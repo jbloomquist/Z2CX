@@ -18,7 +18,7 @@ Usage: `bm scryfall legal:commander+set:fin+ci:mardu`
   * No prompt example: Label doesn't already exist and you type `bm labelname targetaddress`.
     * This creates a new bookmark called labelname with the target of targetaddress with no prompt.
 
-<ins>**ChatGPT**  </ins>
+<ins>**ChatGPT**</ins>  
 Import: `bm gpt`  
 Target: `https://chatgpt.com/?model=auto^^^&q=`  
 Usage: `bm gpt "query string for chatgpt"` (Model Specific)  
