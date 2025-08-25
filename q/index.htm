@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quickhacking Menu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <aside class="sidebar">
+      <div class="chrome-edge"></div>
+      <div class="brand">
+        <h1>Scripts</h1>
+      </div>
+      <div class="search"><input id="search" type="search" placeholder="Filter…" autocomplete="off" /></div>
+      <ul id="menu" class="menu"></ul>
+    </aside>
+
+    <main class="main">
+      <div class="title">
+        <h2 id="detail-title">Select a script</h2>
+      </div>
+      <p id="detail-desc" class="desc">Choose a script from the left to view its contents.</p>
+
+      <section class="stats">
+        <div class="card">
+          <div class="label">Filename</div>
+          <div id="val-name" class="value">—</div>
+        </div>
+        <div class="card">
+          <div class="label">Size</div>
+          <div id="val-size" class="value">—</div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="btn primary" id="btn-download">Download</button>
+        <button class="btn" id="btn-copy">Copy</button>
+      </div>
+
+      <pre id="code-view"><code></code></pre>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
