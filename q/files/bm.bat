@@ -1,13 +1,13 @@
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::::  Script: bm.bat
-:::: Version: 0.13-experimental
-:::: Updated: 2025-07-17
+:::: Version: 0.15-experimental
+:::: Updated: 2025-08-27
 ::::  Source: z2.cx/bm.bat
 ::::
-:::: Add script location to user %path% environment variable to use it as intended. 
+:::: Add script location to user %path% environment variable to use it as intended.
 :::: Run "bm" to see usage info.
 ::::
-:::: This script is incomplete and actively being updated. 
+:::: This script is incomplete and actively being updated.
 :::: EXPERIMENTAL BUILD - NEW FEATURES / POTENTIALLY UNSTABLE / USE AT YOUR OWN RISK
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 @ECHO OFF &SETLOCAL DISABLEDELAYEDEXPANSION
@@ -73,7 +73,7 @@ IF /I "%browserchoice%" EQU "N" SET browserchoice=""
 IF EXIST "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" SET /P browserchoice=Microsoft Edge detected, use as default browser? [Y/N]
 IF /I "%browserchoice%" EQU "Y" >"%~dp0\bm\defaultbrowser" ECHO "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" && IF NOT EXIST "%~dp0\bm\dfbrowserflags" GOTO BM_PREINIT2
 IF /I "%browserchoice%" EQU "N" SET browserchoice=""
-ECHO No browsers were selected, or bm.bat was unable to locate any installed browsers. 
+ECHO No browsers were selected, or bm.bat was unable to locate any installed browsers.
 ECHO Please type the full path to the browser that you wish to use for bm.bat.
 ECHO If your path has any spaces in it, please wrap the full path to the executable in quotation marks.
 SET /P browserchoice=
@@ -81,19 +81,19 @@ SET /P browserchoice=
 ECHO Unexpected error occurred when setting defaultbrowser.
 ECHO Please verify that you have write permissions for the folder that this script is being run from.
 ECHO This script will now exit. & GOTO BM_QUIT
-    
+
 :BM_PREINIT2
 CLS
-ECHO Your default browser is now set. 
+ECHO Your default browser is now set.
 ECHO Please type any additional flags you wish to pass with the browser.
-ECHO Examples: -incognito ^(chrome^), -private ^(firefox^), -inprivate ^(msedge^). 
+ECHO Examples: -incognito ^(chrome^), -private ^(firefox^), -inprivate ^(msedge^).
 ECHO If you don't wish to use any additional flags, just press enter.
 SET /P flags=
 >"%~dp0\bm\dfbrowserflags" ECHO(%flags%
 CLS
 ECHO Browser and Flags set.
 ECHO You can run this setup again by passing the -D flag with bm.bat.
-ECHO BM is now configured to open URL bm shortcuts. 
+ECHO BM is now configured to open URL bm shortcuts.
 ECHO(
 ECHO If you run bm without any additional parameters, it'll show you the usage information.
 SET /P exitprompt=Press enter to exit and then run bm again with the desired arguments.
@@ -122,15 +122,13 @@ IF /I "%address:~0,8%" EQU "https://" SET "url=1"
 IF /I "%address:~0,5%" EQU "call "  ( SET "call=1" &SET "address=%address:~5%" )
 IF /I "%address:~-4%"  EQU ".bat" IF NOT DEFINED url SET "call=1"
 IF /I "%address:~-4%"  EQU ".cmd" SET "call=1"
+IF DEFINED url IF EXIST "%TEMP%\bm_url_append.txt" DEL "%TEMP%\bm_url_append.txt"
 IF DEFINED url IF "%~2" NEQ "" (
-  IF EXIST "%TEMP%\bm_url_append.txt" DEL "%TEMP%\bm_url_append.txt"
   > "%TEMP%\bm_url_append.txt" echo(%address%%~2
-
   POWERSHELL -NoProfile -Command "(Get-Content '%TEMP%\bm_url_append.txt') -replace ' ', '%%20' | Set-Content '%TEMP%\bm_url_append.txt'"
-
   FOR /F "usebackq delims=" %%A IN ("%TEMP%\bm_url_append.txt") DO SET "address=%%A"
 )
-IF DEFINED url SET /P address=<"%TEMP%\bm_url_append.txt"
+IF DEFINED url IF EXIST "%TEMP%\bm_url_append.txt" SET /P address=<"%TEMP%\bm_url_append.txt"
 IF EXIST "%~dp0\bm\defaultbrowser" SET /P browser=<%~dp0\bm\defaultbrowser
 IF EXIST "%~dp0\bm\dfbrowserflags" SET /P flags=<%~dp0\bm\dfbrowserflags
 IF EXIST "%~dp0\bm\%~1" IF DEFINED url START "" %browser% %flags% %address% && GOTO BM_QUIT
@@ -142,12 +140,12 @@ PAUSE
 GOTO BM_INIT
 
 :BM_CHECKSUM
-CD %~dp0 & CertUtil -hashfile bm.bat SHA256 & CertUtil -hashfile bm.bat SHA256 > bm.bat.sha256 
+CD %~dp0 & CertUtil -hashfile bm.bat SHA256 & CertUtil -hashfile bm.bat SHA256 > bm.bat.sha256
 ECHO Created bm.bat.sha256 in directory %~dp0 & GOTO BM_QUIT
 
 :BM_MAKE
 ECHO What is the desired target for label: "%~1"?
-SET /P bmaddress=Path: 
+SET /P bmaddress=Path:
 IF /I "%bmaddress%" EQU "%~dp0bm.bat" (GOTO BM_CRITICAL_ERROR_TARGETSELF) ELSE (IF /I "%bmaddress%" EQU "..\bm.bat" GOTO BM_CRITICAL_ERROR_TARGETSELF)
 SETLOCAL ENABLEDELAYEDEXPANSION
 FOR /F "usebackq delims=" %%A IN (`POWERSHELL -NoProfile -Command "$plain='%bmaddress%';$key=Get-Content -Raw '%~dp0bm\key';$i=0;$enc=[Convert]::ToBase64String(([Text.Encoding]::UTF8.GetBytes($plain) | %%{ $_ -bxor [byte][char]$key[$i++%%$key.Length] }));$enc"`) DO (SET "bmencoded=%%A")
@@ -250,7 +248,7 @@ GOTO BM_QUIT
 
 :BM_CRITICAL_ERROR_TARGETSELF
 ECHO(
-ECHO ERROR: Target cannot be self-referential. I mean, I guess IT COULD be, but it SHOULDN'T be. 
+ECHO ERROR: Target cannot be self-referential. I mean, I guess IT COULD be, but it SHOULDN'T be.
 ECHO If you REALLY want to do this, create a shortcut to the batch file and target the .lnk file.
 ECHO Or, run bm BM to view the script in Notepad and comment out Line 138 of the script.
 ECHO(
@@ -263,7 +261,7 @@ SET "parent="
 PUSHD "%~dp0.."
 SET "parent=%CD%"
 POPD
-ECHO WARNING: Detected bm.bat one level up... 
+ECHO WARNING: Detected bm.bat one level up...
 ECHO Please remove bm.bat from %parent% before running bm.bat from %~dp0
 ECHO This is to avoid unintentional infinite and recursive loops, or fork-bombing.
 ECHO(
