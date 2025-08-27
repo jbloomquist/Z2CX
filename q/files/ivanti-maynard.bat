@@ -1,8 +1,8 @@
 @ECHO OFF
 TITLE Ivanti Fix Script
 SETLOCAL ENABLEDELAYEDEXPANSION
-SET mint=
-SET re=
+SET mint=[38;5;121m
+SET re=[0m
 :: Script Purpose Statement
 ECHO This script is designed to delete specific files to trigger a full repair security scan.
 ECHO %mint%Please be patient with the script, even if it looks like nothing is happening.
