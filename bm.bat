@@ -1,7 +1,7 @@
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::::  Script: bm.bat
-:::: Version: 0.13-experimental
-:::: Updated: 2025-07-17
+:::: Version: 0.14-experimental
+:::: Updated: 2025-08-26
 ::::  Source: z2.cx/bm.bat
 ::::
 :::: Add script location to user %path% environment variable to use it as intended. 
@@ -130,7 +130,7 @@ IF DEFINED url IF "%~2" NEQ "" (
 
   FOR /F "usebackq delims=" %%A IN ("%TEMP%\bm_url_append.txt") DO SET "address=%%A"
 )
-IF DEFINED url SET /P address=<"%TEMP%\bm_url_append.txt"
+IF DEFINED url IF EXIST "%TEMP%\bm_url_append.txt" SET /P address=<"%TEMP%\bm_url_append.txt"
 IF EXIST "%~dp0\bm\defaultbrowser" SET /P browser=<%~dp0\bm\defaultbrowser
 IF EXIST "%~dp0\bm\dfbrowserflags" SET /P flags=<%~dp0\bm\dfbrowserflags
 IF EXIST "%~dp0\bm\%~1" IF DEFINED url START "" %browser% %flags% %address% && GOTO BM_QUIT
